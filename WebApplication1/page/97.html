@@ -1,0 +1,160 @@
+<html>
+<head>   
+    <title>Iyogakoo 爱瑜伽酷， 世界瑜伽人之家。</title>
+ <script src="../Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    var btn = document.getElementsByClassName('btn1');
+    window.onload = function () {
+        var x = document.getElementsByName("myInput");
+     btn[0].onclick = function x4() {   
+         alert(x.length);
+    }
+     x[0].onfocus = function () {
+         x[1].style.background="yellow";
+     }
+     //x[0].onblur = function () {
+     //    btn[0].style.background = "white";
+     //    x[1].size = 21 + x[0].value.length;
+     //    x[1].value=convertCurrency(x[0].value).toString();
+     //}
+     x[0].onkeyup = function () {
+         btn[0].style.background = "white";
+         //x[1].size =30 + x[0].value.length;
+         x[1].value = convertCurrency(x[0].value).toString();
+         $(".result").width(200 + (x[0].value.length)*20);
+     }
+     var swidth = $(".input1").width();
+     //getElements();
+     $(".input1").mouseover(function () {
+         $(".input1").html("谢谢");
+         //this.style.width="200px";
+         $(".input1").width(200);
+     });
+     $(".input1").mouseout(function () {
+         $(".input1").text("div");
+         $(".input1").width(swidth);
+     });
+
+ }
+ function divover(obj) {
+     obj.innerHTML = "谢谢"
+ }
+ function divout(obj) {
+     obj.innerHTML = "div"
+ }
+ function getElements()
+  {
+    var x = document.getElementsByName("myInput");
+    x[0].onfocus = function () {
+        x[1].value = 'a';
+    }
+    x[0].onblur = function () {
+      btn[0].value = '点击';
+    }
+ }
+
+ function convertCurrency(money) {
+     //汉字的数字
+     var cnNums = new Array('零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖');
+     //基本单位
+     var cnIntRadice = new Array('', '拾', '佰', '仟');
+     //对应整数部分扩展单位
+     var cnIntUnits = new Array('', '万', '亿', '万亿');
+     //对应小数部分单位
+     var cnDecUnits = new Array('角', '分', '毫', '厘');
+     //整数金额时后面跟的字符
+     var cnInteger = '整';
+     //整型完以后的单位
+     var cnIntLast = '元';
+     //最大处理的数字
+     var maxNum = 999999999999999.9999;
+     //金额整数部分
+     var integerNum;
+     //金额小数部分
+     var decimalNum;
+     //输出的中文金额字符串
+     var chineseStr = '';
+     //分离金额后用的数组，预定义
+     var parts;
+     if (money == '')
+     { return ''; }
+     else {
+     //money = parseFloat(money);
+     }
+    
+     if (money >= maxNum) {
+         //超出最大处理数字
+         return '';
+     }
+     if (money == 0) {
+         chineseStr = cnNums[0] + cnIntLast + cnInteger;
+         return chineseStr;
+     }
+     //转换为字符串
+     money = money.toString();
+     if (money.indexOf('.') == -1) {
+         integerNum = money;
+         decimalNum = '';
+     } else {
+         parts = money.split('.');
+         integerNum = parts[0];
+         decimalNum = parts[1].substr(0, 4);
+     }
+     //获取整型部分转换
+     if (parseInt(integerNum, 10) > 0) {
+         var zeroCount = 0;
+         var IntLen = integerNum.length;
+         for (var i = 0; i < IntLen; i++) {
+             var n = integerNum.substr(i, 1);
+             var p = IntLen - i - 1;
+             var q = p / 4;
+             var m = p % 4;
+             if (n == '0') {
+                 zeroCount++;
+             } else {
+                 if (zeroCount > 0) {
+                     chineseStr += cnNums[0];
+                 }
+                 //归零
+                 zeroCount = 0;
+                 chineseStr += cnNums[parseInt(n)] + cnIntRadice[m];
+             }
+             if (m == 0 && zeroCount < 4) {
+                 chineseStr += cnIntUnits[q];
+             }
+         }
+         chineseStr += cnIntLast;
+     }
+     //小数部分
+     if (decimalNum != '') {
+         var decLen = decimalNum.length;
+         for (var i = 0; i < decLen; i++) {
+             var n = decimalNum.substr(i, 1);
+             if (n != '0') {
+                 chineseStr += cnNums[Number(n)] + cnDecUnits[i];
+             }
+         }
+     }
+     if (chineseStr == '') {
+         chineseStr += cnNums[0] + cnIntLast + cnInteger;
+     } else if (decimalNum == '') {
+         chineseStr += cnInteger;
+     }
+     return chineseStr;
+ }
+</script>
+</head>
+
+<body>
+    <div style="width:100%">
+        <p>This is a 零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'</p>
+        <!--<input id="btn1" type="button"  value="点击"/>-->
+        <div class="input1" style="width:20px">div</div><br />
+        <input type="text" name="myInput" size="20" /><br />
+        <input type="text" class="result" name="myInput" size="20" /><br/>
+        <input type="button" class="btn1" style="background-color:white" value="点击" />
+
+    </div>
+</body>
+
+</html>
