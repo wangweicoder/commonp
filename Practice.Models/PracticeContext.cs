@@ -13,8 +13,8 @@ namespace Practice.Models
     {
         static PracticeContext()
         {
-            Database.SetInitializer<PracticeContext>(new CreateDatabaseIfNotExists<PracticeContext>());
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<PracticeContext, Configuration>());
+            //Database.SetInitializer<PracticeContext>(new CreateDatabaseIfNotExists<PracticeContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<PracticeContext, Configuration>());
         }
         public PracticeContext() : base("name=PracticeEntities")
             {
