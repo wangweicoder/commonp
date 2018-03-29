@@ -9,7 +9,7 @@ namespace DuPont.APiConsole
 {
     class program2
     {
-        static void Main(string[] args)
+        static void Main6(string[] args)
         {
             Console.WriteLine("我是主线程，线程ID：{0}", Thread.CurrentThread.ManagedThreadId);
             TestAsync1();
